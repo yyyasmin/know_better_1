@@ -1,0 +1,90 @@
+{
+    "gameName": "YoungKids_1",
+    "id": 1,
+    "gameCards": [
+        {
+            "id": "1",
+            "name": "p1",
+            "fileFolder": "../../assets/textures/youngKids_1/png",
+            "fileFullPath": "../../assets/textures/youngKids_1/png/p1.png",
+            "fileNameWithSufix": "p1.png",
+            "background": "blue",
+            "text1": "ספר לי על חיית המחמד שיש לך, או חיית המחמד שהיית רוצה שתהיה לך",
+            "text2": "איך ומתי אתה יכול לשחק אם החבר שלך והחיה שלו",
+            "text3": "Tell me about the pet(s) you have, or the pet you wished you had",
+            "text4": "How and when you can play if your friend and his animal",
+            "faceType": "back"
+            
+        },
+        {
+            "id": "2",
+            "name": "p2",
+            "fileFolder": "../../assets/textures/youngKids_1/png",
+            "fileFullPath": "../../assets/textures/youngKids_1/png/p2.png",
+            "fileNameWithSufix": "p2.png",
+            "background": "blue",
+            "text1": "איזה סוג של מוזיקה אתה אוהב?",
+            "text2": "תגיד שם של זמר או שמרת או להקה ששרה את המוסיקה שחברך אוהב",
+            "text3": "What kind of music do you like?",
+            "text4": "Name a singer or singer or band that sings the music your friend likes",
+            "faceType": "back"
+            
+        },
+        {
+            "id": "3",
+            "name": "p3",
+            "fileFolder": "../../assets/textures/youngKids_1/png",
+            "fileFullPath": "../../assets/textures/youngKids_1/png/p3.png",
+            "fileNameWithSufix": "p3.png",
+            "background": "blue",
+            "text1": "מה טעם הגלידה האהוב עליך?",
+            "text2": "כמה אתה אוהב את החולצות שהחבר שלך למשחק אוהב?",
+            "text3": "What’s your favorite ice cream flavor?",
+            "text4": "How much do you like the tees your playmate likes?",
+            "faceType": "back"
+            
+        },
+        {
+            "id": "4",
+            "name": "p4",
+            "fileFolder": "../../assets/textures/youngKids_1/png",
+            "fileFullPath": "../../assets/textures/youngKids_1/png/p4.png",
+            "fileNameWithSufix": "p4.png",
+            "background": "blue",
+            "text1": "איזו דמות מצוירת היית רוצה שתיהיה אמיתית?",
+            "text2": "מה היית מבקש מהדמות הזו?",
+            "text3": "Which cartoon character do you wish was real?",
+            "text4": "What would you ask of this character?",
+            "faceType": "back"
+            
+        },
+        {
+            "id": "5",
+            "name": "p5",
+            "fileFolder": "../../assets/textures/youngKids_1/png",
+            "fileFullPath": "../../assets/textures/youngKids_1/png/p5.png",
+            "fileNameWithSufix": "p5.png",
+            "background": "blue",
+            "text1": "מה הדבר הכי יוצא דופן בתיק בית הספר שלך עכשיו?",
+            "text2": "האם תרצה לעשות מה שחבר שלך אמר שהוא עשה איתו יחד?",
+            "text3": "What’s the most unusual thing in your school bag right now?",
+            "text4": "Would you like to do what your friend said he did together with him?",
+            "faceType": "back"
+            
+        },
+        {
+            "id": "6",
+            "name": "p6",
+            "fileFolder": "../../assets/textures/youngKids_1/png",
+            "fileFullPath": "../../assets/textures/youngKids_1/png/p6.png",
+            "fileNameWithSufix": "p6.png",
+            "background": "blue",
+            "text1": "מה הדבר הראשון שאתה עושה בבוקר?",
+            "text2": "האם אתה חושב שמה שחברך עושה דבר ראשון בבוקר זה טוב? ",
+            "text3": "What’s the first thing you do in the morning?",
+            "text4": "Do you think what your friend does first thing in the morning is good?",
+            "faceType": "back"
+            
+        }
+    ]
+}
