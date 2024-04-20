@@ -157,7 +157,6 @@ function Game() {
     };
     asyncClear();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-
   }, [clearFlippedCards]);
 
   const togglePlayerTurn = () => {
@@ -264,7 +263,6 @@ function Game() {
       setToggleFlag(true);
     }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-
   }, [firstCardFlippedBack, secondCardFlippedBack, isMatched]);
 
   useEffect(() => {
