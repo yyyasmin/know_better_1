@@ -361,7 +361,7 @@ function Game() {
                 cr.cardsData.map((card, index) => (
                   <NikeCard
                     key={index}
-                    playerName={userName}
+                    // playerName={userName}
                     card={card}
                     faceType={card.faceType}
                     cardSize={cr.cardSize}
