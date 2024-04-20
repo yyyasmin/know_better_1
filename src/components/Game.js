@@ -104,11 +104,13 @@ function Game() {
     broadcastChangeCardSize(cr);
   };
 
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -118,6 +120,7 @@ function Game() {
     if (!isEmpty(currentRoom) && !isEmpty(userName)) {
       broadcastChangeCardSize(currentRoom);
     }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentRoom]);
 
   useEffect(() => {
@@ -126,6 +129,7 @@ function Game() {
       isMatched,
       cr.MatchedCardSize
     );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cr.MatchedCardSize]);
 
   window.onbeforeunload = async function (e) {
@@ -152,6 +156,8 @@ function Game() {
       }
     };
     asyncClear();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [clearFlippedCards]);
 
   const togglePlayerTurn = () => {
@@ -257,6 +263,8 @@ function Game() {
       setSecondCardFlipped(false);
       setToggleFlag(true);
     }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [firstCardFlippedBack, secondCardFlippedBack, isMatched]);
 
   useEffect(() => {
@@ -269,6 +277,7 @@ function Game() {
       togglePlayerTurn();
       setToggleFlag(false);
     }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toggleFlag]);
 
 
