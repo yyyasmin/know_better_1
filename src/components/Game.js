@@ -212,10 +212,10 @@ function Game() {
     }
   };
 
-  const getActivePlayer = () => {
-    const activePlayer = cr.currentPlayers.find((player) => player.isActive);
-    return { ...activePlayer };
-  };
+  // const getActivePlayer = () => {
+  //   const activePlayer = cr.currentPlayers.find((player) => player.isActive);
+  //   return { ...activePlayer };
+  // };
 
   const getCardIndexByCardId = (cardId) => {
     return cr.cardsData.findIndex((card) => card.id === cardId);
