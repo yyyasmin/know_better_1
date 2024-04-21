@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const CardContainer = styled.div`
@@ -52,15 +52,29 @@ const CardText = styled.div`
   font-size: 2vw;
 `;
 
+const ToggleButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+
 const MatchedCards = ({ cardWidth, cardHeight, card, players, index }) => {
+  const [language, setLanguage] = useState("hebrew");
+
+  const toggleLanguage = () => {
+    setLanguage((prevLanguage) => (prevLanguage === "hebrew" ? "english" : "hebrew"));
+  };
+
   const currentPlayer = players.find((player) => player.isActive);
   const opponentPlayer = players.find((player) => !player.isActive);
 
   const playerName = index === 0 ? currentPlayer.name : opponentPlayer.name;
-  const currentText = index === 0 ? card.text1 : card.text2;
+  const currentText =
+    language === "hebrew" ? (index === 0 ? card.text1 : card.text2) : (index === 0 ? card.text3 : card.text4);
 
   return (
     <CardContainer cardWidth={cardWidth} cardHeight={cardHeight}>
+      <ToggleButton onClick={toggleLanguage}>Toggle Language</ToggleButton>
       <CardFrame>
         <ImageWrapper>
           <Image src={card.imageImportName} alt={card.imageImportName} />

@@ -1,3 +1,4 @@
+// shuffle.js
 export const shuffle = (array) => {
     const shuffledArray = [...array]; // Create a copy of the original array to avoid modifying it directly
 
@@ -8,8 +9,8 @@ export const shuffle = (array) => {
         [shuffledArray[i], shuffledArray[randomIndex]] = [shuffledArray[randomIndex], shuffledArray[i]];
     }
 
-    for (let i=0; i < shuffledArray.length;  i++) {
-        shuffledArray[i].id = i
+    for (let i = 0; i < shuffledArray.length; i++) {
+        shuffledArray[i].id = i;
     }
 
     return shuffledArray;
