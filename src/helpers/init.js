@@ -1,7 +1,9 @@
-import { YoungKids_1 } from "./GameCards/YoungKids_1.js";
+import { YoungKids_1, roomSelectionBackgroundImage } from "./GameCards/YoungKids_1.js";
 import { CHOSEN_PROXY_URL } from "./ServerRoutes.js";
-import { shuffle } from "./shuffle";
+import { pickRandom6cards, shuffle } from "./shuffle";
 import isEmpty from "./isEmpty";
+
+//console.log("YoungKids_1: ", YoungKids_1)
 
 
 const TITLE_SIZE = "2.5rem";
@@ -10,7 +12,7 @@ const fetchDataFromJSON = async (filePath) => {
   try {
     const response = await fetch(filePath);
     const data = await response.json();
-    console.log("IN fetchDataFromJSON - data:", data)
+    //console.log("IN fetchDataFromJSON - data:", data)
 
     return data;
   } catch (error) {
@@ -143,45 +145,45 @@ const initCardsInRoomsFromJson = async (rooms) => {
 
     if (cardsData) {
       let gameCards = cardsData.gameCards || [];
+      let arraysObj = pickRandom6cards(gameCards, YoungKids_1.slice(1));
+
+      gameCards = arraysObj.shuffledcardsArr.slice(0, 6);
+      //console.log("gameCards:", gameCards)
 
       const importArr = {
-        YoungKids_1: YoungKids_1
+        YoungKids_1: arraysObj.shuffledimportPathArr.slice(0, 6)  //  YoungKids_1 is room.gameName
         // Add more gameName mappings as needed
       };
+      console.log("importArr:", importArr)
 
-
-      const backgroundImage = importArr[room.gameName] ? importArr[room.gameName][0] : null;
-
-      console.log("room.gameName:", room.gameName)
-      console.log("importArr.length:",importArr.length)
-      console.log("importArr[room.gameName]:", importArr[room.gameName])
+      const backgroundImage = roomSelectionBackgroundImage ? roomSelectionBackgroundImage : null;
 
       if ( !isEmpty(importArr[room.gameName]) ) {
 
-        console.log("IN gameCards", gameCards)
-
-        const gameCards1 = gameCards.map((card, index) => {
-          const importArrValue = importArr[room.gameName][index];
-          const importArrNextValue = importArr[room.gameName][index + 1];
-          console.log("Index:", index);
-          console.log("importArr[room.gameName][index]:", importArrValue);
-          console.log("importArr[room.gameName][index+1]:", importArrNextValue);
+        const gameCards1 = gameCards.map( (card, index) => {
+          const importP1Card = importArr[room.gameName][index][0];
+          //console.log("Index:", index);
+          console.log("importP1Card:", importP1Card);
           
           return {
             ...card,
-            imageImportName: importArrNextValue ? importArrNextValue[0] : undefined,
+            imageImportName: importP1Card ? importP1Card : undefined,
           };
-        });
-        
-
+        } );
         console.log("gameCards1:", gameCards1)
 
-        const gameCards2 = gameCards.map((card, index) => ({
-          ...card,
-          imageImportName: importArr[room.gameName][index + 1][1],
-        }));
-        
+        const gameCards2 = gameCards.map( (card, index) => {
+          const importP2Card = importArr[room.gameName][index][1];
+          //console.log("Index:", index);
+          console.log("importP2Card:", importP2Card);
+          
+          return {
+            ...card,
+            imageImportName: importP2Card ? importP2Card : undefined,
+          };
+        } );
         console.log("gameCards2:", gameCards2)
+
 
         const shuffledGameCards = shuffle(gameCards1.concat(gameCards2));
         room.cardsData = shuffledGameCards;
