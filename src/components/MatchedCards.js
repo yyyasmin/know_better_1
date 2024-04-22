@@ -4,13 +4,7 @@ import styled from "styled-components";
 const CardContainer = styled.div`
   width: ${(props) => props.cardWidth}px;
   height: ${(props) => props.cardHeight}px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin: 2vw;
-  background-color: snow; /* Set the background color here */
-  border-radius: 25px;
-  border: 1vw solid brown;
 `;
 
 const CardFrame = styled.div`
@@ -19,6 +13,9 @@ const CardFrame = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: snow;
+  border-radius: 25px;
+  border: 1vw solid brown;
 `;
 
 const ImageWrapper = styled.div`
@@ -36,12 +33,11 @@ const Image = styled.img`
 const TextContainer = styled.div`
   width: 100%;
   height: 30%;
-  padding: 2%; /* Add padding relative to the container's width */
+  padding: 2%;
   box-sizing: border-box;
-  /* border-radius: 25px; */
-  border: 1vw solid #fad5a5; /* Border for text */
-  color: black; /* Set the text color here */
-  text-align: center; /* Center the text horizontally */
+  border: 1vw solid #fad5a5;
+  color: black;
+  text-align: center;
 `;
 
 const PlayerName = styled.div`
@@ -65,16 +61,17 @@ const MatchedCards = ({ cardWidth, cardHeight, card, players, index }) => {
     setLanguage((prevLanguage) => (prevLanguage === "hebrew" ? "english" : "hebrew"));
   };
 
+  const toggleButtonText = language === "hebrew" ? "Switch to English" : "החלף לעברית";
+
   const currentPlayer = players.find((player) => player.isActive);
   const opponentPlayer = players.find((player) => !player.isActive);
-
   const playerName = index === 0 ? currentPlayer.name : opponentPlayer.name;
   const currentText =
     language === "hebrew" ? (index === 0 ? card.text1 : card.text2) : (index === 0 ? card.text3 : card.text4);
 
   return (
     <CardContainer cardWidth={cardWidth} cardHeight={cardHeight}>
-      <ToggleButton onClick={toggleLanguage}>Toggle Language</ToggleButton>
+      <ToggleButton onClick={toggleLanguage}>{toggleButtonText}</ToggleButton>
       <CardFrame>
         <ImageWrapper>
           <Image src={card.imageImportName} alt={card.imageImportName} />
