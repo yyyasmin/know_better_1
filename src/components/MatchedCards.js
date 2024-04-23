@@ -49,9 +49,21 @@ const CardText = styled.div`
 `;
 
 const ToggleButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  margin-bottom: 2vw;
+  display: block;
+  width: 150px;
+  height: 50px;
+  font-size: 1.2rem;
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 auto; /* Center horizontally */
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
 `;
 
 const MatchedCards = ({ cardWidth, cardHeight, card, players, index }) => {
@@ -71,8 +83,8 @@ const MatchedCards = ({ cardWidth, cardHeight, card, players, index }) => {
 
   return (
     <CardContainer cardWidth={cardWidth} cardHeight={cardHeight}>
-      <ToggleButton onClick={toggleLanguage}>{toggleButtonText}</ToggleButton>
       <CardFrame>
+        <ToggleButton onClick={toggleLanguage}>{toggleButtonText}</ToggleButton>
         <ImageWrapper>
           <Image src={card.imageImportName} alt={card.imageImportName} />
         </ImageWrapper>
