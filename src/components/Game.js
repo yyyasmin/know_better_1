@@ -6,7 +6,9 @@ import isEmpty from "../helpers/isEmpty";
 import MatchedCards from "./MatchedCards";
 import TougleMatchedCardButton from "./TougleMatchedCardButton";
 import { useLocation } from "react-router-dom";
-import { calculateCardSize } from "../helpers/init";
+import { calculateCardSize, getCardsContainerHeight } from "../helpers/init";
+
+
 import {
   updateCr,
   updateIsMatched,
@@ -20,15 +22,15 @@ import {
 const GameContainer = styled.div`
   background-color: #fdf2e9;
   color: brown;
-  border-radius: 25px;
-  padding: 20px;
+  border-radius: 1.5625rem; /* Converted border radius to rem */
+  padding: 1.25rem; /* Converted padding to rem */
 `;
 
 const Wellcome = styled.h1`
-  font-size: 2.5rem;
+  font-size: 2.5rem; /* Adjusted to use TITLE_SIZE converted to rem */
   text-align: center;
-  margin-bottom: 5px;
-  border-radius: 25px;
+  margin-bottom: 0.3125rem; /* Converted margin to rem */
+  border-radius: 1.5625rem; /* Converted border radius to rem */
 `;
 
 const CardGallery = styled.div`
@@ -37,10 +39,14 @@ const CardGallery = styled.div`
   align-items: center;
   flex-wrap: wrap;
   background-color: #fad5a5;
-  border-radius: 25px;
-  min-height: 80vh; /* Changed height to min-height */
-  padding: 20px;
+
+  border-radius: 1.5625rem; /* Converted border radius to rem */
+  height: ${({ cardSize }) => cardSize.containerHeight}; 
+  width: ${({ cardSize }) => cardSize.containerWidth};
 `;
+
+
+// No changes needed in the rest of the code
 
 function Game() {
   const location = useLocation();
@@ -328,15 +334,15 @@ function Game() {
   return (
     <GameContainer>
       {playerLeft && <div>{playerLeft} has left the room.</div>}
-
+  
       <Wellcome>
-        <div>Wellcome to room: {cr.name}</div>
+        <div>Welcome to room: {cr.name}</div>
       </Wellcome>
-
+  
       {cr && parseInt(cr.id) >= 0 && cr.currentPlayers && cr.currentPlayers.length > 0 && (
         <Players maxMembers={cr.maxMembers} players={cr.currentPlayers} playerName={userName} />
       )}
-
+  
       {cr && parseInt(cr.id) >= 0 && (
         <TougleMatchedCardButton
           isMatched={isMatched}
@@ -344,47 +350,50 @@ function Game() {
           setClearFlippedCards={setClearFlippedCards}
         />
       )}
-
-      <CardGallery>
-        {isMatched &&
-          last2FlippedCards &&
-          last2FlippedCards.length > 0 &&
-          !isEmpty(cr) && !isEmpty(cr.currentPlayers) && !isEmpty(cr.MatchedCardSize) && 
-          cr.currentPlayers.length > 0 ? (
-            last2FlippedCards.map((card, index) => (
-              <MatchedCards
-                key={index} 
-                index={index}
-                playerName={userName} 
-                players={cr.currentPlayers} 
-                cardSize={cr.MatchedCardSize} 
-                card={card} />
-            ))
-          ) : (
-            <>
-              {  
-                cr.cardsData &&
-                !isEmpty(cr.cardSize) &&
-                cr.cardsData.map((card, index) => (
-                  <NikeCard
-                    key={index}
-                    // playerName={userName}
-                    card={card}
-                    faceType={card.faceType}
-                    cardSize={cr.cardSize}
-                    frameColor={cr.frameColor}
-
-                    toggleCardFlip={() => {
-                      handleCardFlip(card.id);
-                    }}
-                  />
-                ))
-              }
-            </>
-          )}
-      </CardGallery>
+  
+      {!isEmpty(cr) && !isEmpty(cr.cardSize) && (
+        <CardGallery cardSize={cr.cardSize}>
+          {isMatched &&
+            last2FlippedCards &&
+            last2FlippedCards.length > 0 &&
+            !isEmpty(cr.currentPlayers) && !isEmpty(cr.MatchedCardSize) &&
+            cr.currentPlayers.length > 0 ? (
+              last2FlippedCards.map((card, index) => (
+                <MatchedCards
+                  key={index}
+                  index={index}
+                  playerName={userName}
+                  players={cr.currentPlayers}
+                  cardSize={cr.MatchedCardSize}
+                  card={card}
+                />
+              ))
+            ) : (
+              <>
+                {
+                  cr.cardsData &&
+                  cr.cardsData.map((card, index) => (
+                    <NikeCard
+                      key={index}
+                      // playerName={userName}
+                      card={card}
+                      faceType={card.faceType}
+                      cardSize={cr.cardSize}
+                      frameColor={cr.frameColor}
+  
+                      toggleCardFlip={() => {
+                        handleCardFlip(card.id);
+                      }}
+                    />
+                  ))
+                }
+              </>
+            )}
+        </CardGallery>
+      )}
     </GameContainer>
   );
+  
 }
 
 export default Game;

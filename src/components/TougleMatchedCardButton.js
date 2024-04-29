@@ -7,30 +7,28 @@ const ReturnButtonContainer = styled.div`
   justify-content: center;
   background-color: #fdf2e9;
   color: #fad5a5;
-  padding: 1vw; /* Used vw for padding to make it responsive */
-  /* background-color: green; */
-
+  padding: 1rem; /* Converted padding to rem */
 `;
 
 const MsgAndButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 0.5vw; /* Reduce the vertical gap */
+  margin-bottom: 0.3125rem; /* Reduced the vertical gap and converted to rem */
 `;
 
 const ReturnButton = styled.button`
   background-color: #fad5a5;
   color: #808000;
   border: none;
-  border-radius: 1vw; /* Used vw for border-radius to make it responsive */
+  border-radius: 1rem; /* Converted border-radius to rem */
   cursor: pointer;
-  box-shadow: 0.5vw 0.5vw 0 0 rgba(0, 0, 0, 0.5); /* Used vw for box-shadow to make it responsive */
+  box-shadow: 0.5rem 0.5rem 0 0 rgba(0, 0, 0, 0.5); /* Used rem for box-shadow to make it responsive */
   transition: transform 0.2s;
-  font-size: 2vw; /* Used vw for font-size to make it responsive */
+  font-size: 2rem; /* Used rem for font-size to make it responsive */
   font-weight: bold;
-  padding: 1.5vw 3vw; /* Used vw for padding to make it responsive */
-  margin-bottom: 0; /* Remove margin-bottom */
+  padding: 1.5rem 3rem; /* Used rem for padding to make it responsive */
+  margin-bottom: 0; /* Removed margin-bottom */
 `;
 
 const TougleMatchedCardButton = (props) => {

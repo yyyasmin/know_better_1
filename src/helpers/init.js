@@ -3,17 +3,13 @@ import { CHOSEN_PROXY_URL } from "./ServerRoutes.js";
 import { pickRandom6cards, shuffle } from "./shuffle";
 import isEmpty from "./isEmpty";
 
-//console.log("YoungKids_1: ", YoungKids_1)
-
-
-const TITLE_SIZE = "2.5rem";
+const TITLE_SIZE = 2.5; // 2.5rem
+let cardsGaleryHeight = 10.0
 
 const fetchDataFromJSON = async (filePath) => {
   try {
     const response = await fetch(filePath);
     const data = await response.json();
-    //console.log("IN fetchDataFromJSON - data:", data)
-
     return data;
   } catch (error) {
     return null;
@@ -21,17 +17,25 @@ const fetchDataFromJSON = async (filePath) => {
 };
 
 const getInitialGallerySize = () => {
-  let initialGallerySize = { 
-    width: window.innerWidth,
-    height: window.innerHeight - parseFloat(TITLE_SIZE)
+  const vwToRem = (window.innerWidth) / 16; // Convert vh to rem
+  const vhToRem = (window.innerHeight - TITLE_SIZE * 16) / 16; // Convert vh to rem
+  return {
+    width:  `${vwToRem}rem`,
+    height: `${vhToRem}rem`
   };
-  return initialGallerySize;
+};
+
+export const getCardsContainerHeight = () => {
+  return cardsGaleryHeight
 };
 
 export const calculateCardSize = (cardsNum) => {
   const initialSize = getInitialGallerySize();
-  const containerWidth = initialSize.width;
-  const containerHeight = initialSize.height;
+  console.log("initialSize: ", initialSize)
+  
+  const containerWidth = parseFloat(initialSize.width);
+  const containerHeight = parseFloat(initialSize.height);
+
   let cols, rows;
 
   switch (cardsNum) {
@@ -39,67 +43,34 @@ export const calculateCardSize = (cardsNum) => {
       cols = 2;
       rows = 1;
       break;
-
     case 8:
       cols = 4;
       rows = 2;
       break;
-
     case 10:
       cols = 5;
       rows = 2;
       break;
-
     case 12:
       cols = 4;
       rows = 3;
       break;
-
-    case 14:
-      cols = 7;
-      rows = 2;
-      break;
-
     case 16:
       cols = 4;
       rows = 4;
       break;
-
     case 18:
       cols = 6;
       rows = 3;
       break;
-
     case 20:
       cols = 5;
       rows = 4;
       break;
-
-    case 22:
-      cols = 5;
-      rows = 5;
-      break;
-
     case 24:
       cols = 6;
       rows = 4;
       break;
-
-    case 26:
-      cols = 5;
-      rows = 5;
-      break;
-
-    case 28:
-      cols = 7;
-      rows = 4;
-      break;
-
-    case 30:
-      cols = 6;
-      rows = 5;
-      break;
-
     default:
       cols = 4;
       rows = 4;
@@ -111,28 +82,40 @@ export const calculateCardSize = (cardsNum) => {
     rows = tmpCols;
   }
 
-  let totalGapWidth = containerWidth * 2 / 100;
-  let totalGapHeight = containerHeight * 2 / 100;
+  let totalGapWidth = containerWidth * 0.02; // 2% of container width
+  let totalGapHeight = containerHeight * 0.02; // 2% of container height
 
   let gapWidth = totalGapWidth / (cols + 1);
   let gapHeight = totalGapHeight / (rows + 1);
 
-  let cardWidth = (containerWidth - (totalGapWidth + 1)) / cols;
-  cardWidth = Math.min(0.4 * containerWidth, cardWidth);
+  // let cardWidth = (containerWidth - (totalGapWidth * (cols + 1))) / cols;
+  // cardWidth = Math.min(0.4 * containerWidth, cardWidth);
 
-  let cardHeight = (containerHeight - (totalGapHeight + 1)) / rows;
+  let cardHeight = (containerHeight - (totalGapHeight * (rows + 1))) / rows;
   cardHeight = Math.min(containerHeight * 0.6, cardHeight * 0.8);
 
+  let cardWidth = cardHeight
+  console.log("GAPWITH - BEFORE: ", gapWidth)
+  gapWidth = (containerWidth / (cardWidth+gapWidth)) / (cols-2)
+  console.log("GAPWITH - AFTER: ", gapWidth)
+
+
   const cardSize = {
+    containerWidth: containerWidth, 
+    containerHeight: containerHeight, 
+
     card: {
-      width: cardWidth,
-      height: cardHeight,
+      width: `${cardWidth}rem`,
+      height: `${cardHeight}rem`,
     },
+
     gap: {
-      width: gapWidth,
-      height: gapHeight,
+      width: `${gapWidth}rem`,
+      height: `${gapHeight}rem`,
     },
+
   };
+  console.log("CRAD SIZE: ", cardSize)
 
   return cardSize;
 };
@@ -142,48 +125,34 @@ const initCardsInRoomsFromJson = async (rooms) => {
     const jsonURL = `${CHOSEN_PROXY_URL}/database/GameCards/${room.gameName}.json`;
     const cardsData = await fetchDataFromJSON(jsonURL);
 
-
     if (cardsData) {
       let gameCards = cardsData.gameCards || [];
       let arraysObj = pickRandom6cards(gameCards, YoungKids_1.slice(1));
 
       gameCards = arraysObj.shuffledcardsArr.slice(0, 6);
-      //console.log("gameCards:", gameCards)
-
+      
       const importArr = {
-        YoungKids_1: arraysObj.shuffledimportPathArr.slice(0, 6)  //  YoungKids_1 is room.gameName
-        // Add more gameName mappings as needed
+        YoungKids_1: arraysObj.shuffledimportPathArr.slice(0, 6)
       };
-      console.log("importArr:", importArr)
 
       const backgroundImage = roomSelectionBackgroundImage ? roomSelectionBackgroundImage : null;
 
-      if ( !isEmpty(importArr[room.gameName]) ) {
-
-        const gameCards1 = gameCards.map( (card, index) => {
+      if (!isEmpty(importArr[room.gameName])) {
+        const gameCards1 = gameCards.map((card, index) => {
           const importP1Card = importArr[room.gameName][index][0];
-          //console.log("Index:", index);
-          console.log("importP1Card:", importP1Card);
-          
           return {
             ...card,
             imageImportName: importP1Card ? importP1Card : undefined,
           };
-        } );
-        console.log("gameCards1:", gameCards1)
+        });
 
-        const gameCards2 = gameCards.map( (card, index) => {
+        const gameCards2 = gameCards.map((card, index) => {
           const importP2Card = importArr[room.gameName][index][1];
-          //console.log("Index:", index);
-          console.log("importP2Card:", importP2Card);
-          
           return {
             ...card,
             imageImportName: importP2Card ? importP2Card : undefined,
           };
-        } );
-        console.log("gameCards2:", gameCards2)
-
+        });
 
         const shuffledGameCards = shuffle(gameCards1.concat(gameCards2));
         room.cardsData = shuffledGameCards;

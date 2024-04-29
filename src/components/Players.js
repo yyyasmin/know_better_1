@@ -31,6 +31,10 @@ const Turn = styled.div`
   color: #808000;
 `;
 
+const PlayerInfo = styled.div`
+  display: flex; /* Display player name and turn on the same line */
+`;
+
 const Players = ({ maxMembers = 2, players = [], playerName }) => {
   const currentPlayerIndex = players.findIndex((player) => player.name === playerName);
   const activePlayer = players.find((player) => player.isActive);
@@ -39,21 +43,29 @@ const Players = ({ maxMembers = 2, players = [], playerName }) => {
     <PlayersContainer>
       <Player>
         PLAYERS:{" "}
-        {players.map((player, index) => (
-          <PlayerName key={index}>
-            {index === currentPlayerIndex ? `${player.name} (you)` : player.name}{" "}
-          </PlayerName>
-        ))}
-        {players.length < maxMembers && (
-          <PlayerName>
-            Waiting for another player to join the game...
-          </PlayerName>
-        )}
+        <PlayerInfo>
+          {players.map((player, index) => (
+            <React.Fragment key={index}>
+              <PlayerName>
+                {index === currentPlayerIndex ? `${player.name}(you)` : player.name}
+              </PlayerName>
+              &nbsp; {/* Non-breaking space */}
+            </React.Fragment>
+          ))}
+          {players.length < maxMembers && (
+            <>
+              &nbsp; {/* Non-breaking space */}
+              <PlayerName>
+                Waiting for another player to join the game...
+              </PlayerName>
+            </>
+          )}
+        </PlayerInfo>
         {activePlayer && (
           <Turn>
             IT'S{" "}
             <BoldPlayerName>
-              {activePlayer.name === playerName ? `${activePlayer.name} (your)` : activePlayer.name}
+              {activePlayer.name === playerName ? `${activePlayer.name}(your)` : activePlayer.name}
             </BoldPlayerName>'S TURN
           </Turn>
         )}

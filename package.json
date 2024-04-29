@@ -20,7 +20,7 @@
     "react-scripts": "5.0.1",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
-    "styled-components": "^6.0.8",
+    "styled-components": "^6.1.8",
     "web-vitals": "^2.1.0"
   },
   "proxy": "https://spotty-join-production.up.railway.app/",

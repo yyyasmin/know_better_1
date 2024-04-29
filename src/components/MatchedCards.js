@@ -77,7 +77,8 @@ const MatchedCards = ({ cardWidth, cardHeight, card, players, index }) => {
 
   const currentPlayer = players.find((player) => player.isActive);
   const opponentPlayer = players.find((player) => !player.isActive);
-  const playerName = index === 0 ? currentPlayer.name : opponentPlayer.name;
+  const playerName = index === 0 ? opponentPlayer.name : currentPlayer.name;
+
   const currentText =
     language === "hebrew" ? (index === 0 ? card.text1 : card.text2) : (index === 0 ? card.text3 : card.text4);
 
