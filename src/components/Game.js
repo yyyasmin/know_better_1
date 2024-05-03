@@ -29,15 +29,35 @@ const GameContainer = styled.div`
 const Wellcome = styled.h1`
   font-size: 2.5rem; /* Adjusted to use TITLE_SIZE converted to rem */
   text-align: center;
+<<<<<<< know_better_1
   margin-bottom: 0.3125rem; /* Converted margin to rem */
   border-radius: 1.5625rem; /* Converted border radius to rem */
+=======
+  margin-bottom: 0.3rem; /* Converted margin to rem */
+  margin-top: 0.01rem; /* Converted margin to rem */
+
+>>>>>>> local
 `;
 
 const CardGallery = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+<<<<<<< know_better_1
   flex-wrap: wrap;
+=======
+  margin-bottom: 0.5rem;
+`;
+
+
+const CardGallery = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(4, auto);
+  gap: 1rem;
+  justify-content: center; /* center horizontally */
+  align-items: center; /* center vertically */
+>>>>>>> local
   background-color: #fad5a5;
 
   border-radius: 1.5625rem; /* Converted border radius to rem */
