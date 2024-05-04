@@ -6,7 +6,7 @@ import isEmpty from "../helpers/isEmpty";
 import MatchedCards from "./MatchedCards";
 import TougleMatchedCardButton from "./TougleMatchedCardButton";
 import { useLocation } from "react-router-dom";
-import { calculateCardSize, getCardsContainerHeight } from "../helpers/init";
+import { calculateCardSize } from "../helpers/init";
 
 
 import {
@@ -41,13 +41,6 @@ const InfoContainer = styled.div`
   margin-bottom: 0.5rem;
 `;
 
-const PlayersMsg = styled.p`
-  margin-right: 1rem; /* Add space between players info and button */
-`;
-
-const KeepGoingButton = styled.button`
-  font-size: 1rem; /* Decreased font size */
-`;
 
 const CardGallery = styled.div`
   display: grid;

@@ -18,7 +18,6 @@ const fetchDataFromJSON = async (filePath) => {
 const getInitialGallerySize = () => {
   const TITLE_SIZE = 2.5; // Title size in rem
 
-  const screenRemWidth = window.innerWidth / 16 
   const screenRemHeight = window.innerHeight / 16
 
   const cardsContainerHeightRem =screenRemHeight - TITLE_SIZE

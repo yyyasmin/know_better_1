@@ -32,7 +32,7 @@ const NikeCard = (props) => {
 
   console.log("IN NickCard --  cardSize: ", cardSize)
 
-  const [yasminLogoSize, setYasminLogoSize] = useState({ width: 0, height: 0 });
+  const [setYasminLogoSize] = useState({ width: 0, height: 0 });
   const [cardImageSize, setCardImageSize] = useState({ width: 0, height: 0 });
 
   const handleCardClick = () => {
