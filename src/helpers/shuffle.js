@@ -1,4 +1,4 @@
-export const pickRandom6cards = (cardsArr, importPathArr) => {
+export const pickRandom8cards = (cardsArr, importPathArr) => {
     const shuffledcardsArr = [...cardsArr]; // Create a copy of the original cardsArr to avoid modifying it directly
     const shuffledimportPathArr = [...importPathArr]; // Create a copy of the original cardsArr to avoid modifying it directly
 

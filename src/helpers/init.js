@@ -1,10 +1,9 @@
-import { YoungKids_1, roomSelectionBackgroundImage } from "./GameCards/YoungKids_1.js";
+import { Know_better_1, roomSelectionBackgroundImage } from "./GameCards/Know_better_1.js";
 import { CHOSEN_PROXY_URL } from "./ServerRoutes.js";
-import { pickRandom6cards, shuffle } from "./shuffle";
+import { pickRandom8cards, shuffle } from "./shuffle";
 import isEmpty from "./isEmpty";
 
-const TITLE_SIZE = 2.5; // 2.5rem
-let cardsGaleryHeight = 10.0
+const TITLE_SIZE = 2.0;
 
 const fetchDataFromJSON = async (filePath) => {
   try {
@@ -17,108 +16,97 @@ const fetchDataFromJSON = async (filePath) => {
 };
 
 const getInitialGallerySize = () => {
-  const vwToRem = (window.innerWidth) / 16; // Convert vh to rem
-  const vhToRem = (window.innerHeight - TITLE_SIZE * 16) / 16; // Convert vh to rem
-  return {
-    width:  `${vwToRem}rem`,
-    height: `${vhToRem}rem`
-  };
-};
+  const TITLE_SIZE = 2.5; // Title size in rem
 
-export const getCardsContainerHeight = () => {
-  return cardsGaleryHeight
+  const screenRemWidth = window.innerWidth / 16 
+  const screenRemHeight = window.innerHeight / 16
+
+  const cardsContainerHeightRem =screenRemHeight - TITLE_SIZE
+  const cardsContainerWidthRem = cardsContainerHeightRem 
+
+  return { cardsContainerWidthRem, cardsContainerHeightRem };  // make cards area squred ratio  - height=width
 };
 
 export const calculateCardSize = (cardsNum) => {
-  const initialSize = getInitialGallerySize();
-  console.log("initialSize: ", initialSize)
-  
-  const containerWidth = parseFloat(initialSize.width);
-  const containerHeight = parseFloat(initialSize.height);
+  console.log("cardsNum: ", cardsNum)
+  const { cardsContainerWidthRem, cardsContainerHeightRem } = getInitialGallerySize();
+  console.log("1111 -- cardsContainerWidthRem: ", cardsContainerWidthRem)
 
+  // Determine number of rows and columns
   let cols, rows;
-
   switch (cardsNum) {
-    case 2:
+
+    case 2:  // matched cards
       cols = 2;
       rows = 1;
       break;
-    case 8:
-      cols = 4;
-      rows = 2;
-      break;
-    case 10:
-      cols = 5;
-      rows = 2;
-      break;
-    case 12:
-      cols = 4;
-      rows = 3;
-      break;
-    case 16:
+
+    case 16:  // squred board
       cols = 4;
       rows = 4;
       break;
-    case 18:
-      cols = 6;
-      rows = 3;
-      break;
-    case 20:
-      cols = 5;
-      rows = 4;
-      break;
-    case 24:
-      cols = 6;
-      rows = 4;
-      break;
+
     default:
       cols = 4;
       rows = 4;
   }
 
-  if (containerHeight > containerWidth) {
-    let tmpCols = cols;
-    cols = rows;
-    rows = tmpCols;
+  console.log("cardsContainerHeightRem: ", cardsContainerHeightRem)
+  console.log("cardsContainerWidthRem: ", cardsContainerWidthRem)
+
+
+  if (cardsContainerHeightRem > cardsContainerWidthRem)  {
+    // [cols, rows] = [rows, cols];  // TRY THIS ONCE IT WORKS
+    // SWAP ROWS AND COLS TO FIT THE SCREEN RATIO 
+    let tmpCols = cols
+    cols = rows
+    rows = tmpCols 
   }
 
-  let totalGapWidth = containerWidth * 0.02; // 2% of container width
-  let totalGapHeight = containerHeight * 0.02; // 2% of container height
+  console.log("cardsNum: ", cardsNum)
 
-  let gapWidth = totalGapWidth / (cols + 1);
-  let gapHeight = totalGapHeight / (rows + 1);
+  console.log("ROWS: ", rows)
+  console.log("cardsContainerHeightRem: ", cardsContainerHeightRem)
+  console.log("COLS: ", cols)
+  console.log("cardsContainerWidthRem: ", cardsContainerWidthRem)
 
-  // let cardWidth = (containerWidth - (totalGapWidth * (cols + 1))) / cols;
-  // cardWidth = Math.min(0.4 * containerWidth, cardWidth);
+  let cardAndGapHeight = cardsContainerHeightRem / (rows*1.1)
+  let cardHeight = cardAndGapHeight * 0.95
+  const gapHeight = cardAndGapHeight*0.1
+  const gapWidth = gapHeight
 
-  let cardHeight = (containerHeight - (totalGapHeight * (rows + 1))) / rows;
-  cardHeight = Math.min(containerHeight * 0.6, cardHeight * 0.8);
+  const cardWidth = cardHeight;
+  // keep the gaps in the same ration as the screen ratio
+  console.log("xxx -- cardsContainerWidthRem: ", cardsContainerWidthRem)
+  console.log("xxx -- cardWidth: ", cardWidth)
+  console.log("xxx -- cols: ", cols)
+  console.log("xxx -- gapWidth: ", gapWidth)
 
-  let cardWidth = cardHeight
-  console.log("GAPWITH - BEFORE: ", gapWidth)
-  gapWidth = (containerWidth / (cardWidth+gapWidth)) / (cols-2)
-  console.log("GAPWITH - AFTER: ", gapWidth)
 
+  console.log ("gapWidth: ", gapWidth)
 
-  const cardSize = {
-    containerWidth: containerWidth, 
-    containerHeight: containerHeight, 
+  const cardSize =  {
+    containerWidth: `${cardsContainerHeightRem}rem`,
 
+    containerHeight: `${cardsContainerHeightRem}rem`,
     card: {
       width: `${cardWidth}rem`,
       height: `${cardHeight}rem`,
     },
-
     gap: {
       width: `${gapWidth}rem`,
       height: `${gapHeight}rem`,
     },
-
   };
-  console.log("CRAD SIZE: ", cardSize)
 
-  return cardSize;
+  console.log("rows: ", rows)
+  console.log("cols: ", cols)
+  console.log("cardSize: ", cardSize)
+
+  return cardSize
 };
+
+
 
 const initCardsInRoomsFromJson = async (rooms) => {
   for (const room of rooms) {
@@ -127,12 +115,12 @@ const initCardsInRoomsFromJson = async (rooms) => {
 
     if (cardsData) {
       let gameCards = cardsData.gameCards || [];
-      let arraysObj = pickRandom6cards(gameCards, YoungKids_1.slice(1));
+      let arraysObj = pickRandom8cards(gameCards, Know_better_1.slice(1));
 
-      gameCards = arraysObj.shuffledcardsArr.slice(0, 6);
+      gameCards = arraysObj.shuffledcardsArr.slice(0, 8);
       
       const importArr = {
-        YoungKids_1: arraysObj.shuffledimportPathArr.slice(0, 6)
+        Know_better_1: arraysObj.shuffledimportPathArr.slice(0, 8)
       };
 
       const backgroundImage = roomSelectionBackgroundImage ? roomSelectionBackgroundImage : null;

@@ -122,7 +122,7 @@ const RoomsList = ({ userName, roomsInitialData }) => {
   console.log("In ROOM-LIST -- roomsInitialData: ", roomsInitialData)
   return (
     <GameContainer>
-      <GameHeading>Get To Know Each Other Room:</GameHeading>
+      <GameHeading>Get to know your freind better while practicing active listening:</GameHeading>
       <RoomList>
         {roomsInitialData.map((room) => (
           <RoomItem key={room.id} frameColor={room.frameColor} backgroundImage={room.backgroundImage}>

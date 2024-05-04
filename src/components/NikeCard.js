@@ -7,21 +7,17 @@ const computeBorderColor = (frameColor) => {
   return `border: 0.625rem solid ${frameColor};`; // Converted border width to rem
 };
 
+
 const CardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   cursor: grab;
-  overflow: hidden;
   position: relative;
-  border-radius: 1.5625rem; // Converted border radius to rem
+  border-radius: 1.5625rem;
+  width: ${({ cardSize }) => cardSize.card.width}; /* Set the width */
+  height: ${({ cardSize }) => cardSize.card.height}; /* Set the height */
   ${({ frameColor }) => computeBorderColor(frameColor)}
   box-sizing: border-box;
-  max-width: 100%;
-  height: ${({ cardSize }) => cardSize.card.height}; 
-  width: ${({ cardSize }) => cardSize.card.width};
-  margin: ${({ cardSize }) => `${cardSize.gap.height} ${cardSize.gap.width}`}; 
-  min-height: ${({ cardSize }) => cardSize.card.width}; /* Set max-width to maintain aspect ratio */
 `;
+
 
 const CardImage = styled.img`
   width: 100%;
@@ -33,6 +29,8 @@ const CardImage = styled.img`
 
 const NikeCard = (props) => {
   const { card, cardSize, faceType, frameColor, toggleCardFlip } = props;
+
+  console.log("IN NickCard --  cardSize: ", cardSize)
 
   const [yasminLogoSize, setYasminLogoSize] = useState({ width: 0, height: 0 });
   const [cardImageSize, setCardImageSize] = useState({ width: 0, height: 0 });

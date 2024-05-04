@@ -23,32 +23,31 @@ const GameContainer = styled.div`
   background-color: #fdf2e9;
   color: brown;
   border-radius: 1.5625rem; /* Converted border radius to rem */
-  padding: 1.25rem; /* Converted padding to rem */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center items horizontally */
+  margin: 1rem; /* Add margin around the entire CardGallery */
 `;
 
 const Wellcome = styled.h1`
-  font-size: 2.5rem; /* Adjusted to use TITLE_SIZE converted to rem */
+  font-size: 1.5rem; /* Adjusted to use TITLE_SIZE converted to rem */
   text-align: center;
-<<<<<<< know_better_1
-  margin-bottom: 0.3125rem; /* Converted margin to rem */
-  border-radius: 1.5625rem; /* Converted border radius to rem */
-=======
   margin-bottom: 0.3rem; /* Converted margin to rem */
-  margin-top: 0.01rem; /* Converted margin to rem */
-
->>>>>>> local
 `;
 
-const CardGallery = styled.div`
+const InfoContainer = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-<<<<<<< know_better_1
-  flex-wrap: wrap;
-=======
   margin-bottom: 0.5rem;
 `;
 
+const PlayersMsg = styled.p`
+  margin-right: 1rem; /* Add space between players info and button */
+`;
+
+const KeepGoingButton = styled.button`
+  font-size: 1rem; /* Decreased font size */
+`;
 
 const CardGallery = styled.div`
   display: grid;
@@ -57,13 +56,15 @@ const CardGallery = styled.div`
   gap: 1rem;
   justify-content: center; /* center horizontally */
   align-items: center; /* center vertically */
->>>>>>> local
   background-color: #fad5a5;
-
   border-radius: 1.5625rem; /* Converted border radius to rem */
-  height: ${({ cardSize }) => cardSize.containerHeight}; 
-  width: ${({ cardSize }) => cardSize.containerWidth};
+  width: min-content; /* Automatically adjust width based on content */
+  height: min-content; /* Automatically adjust height based on content */
+  padding: 1.5rem; /* Add margin */
 `;
+
+
+
 
 
 // No changes needed in the rest of the code
@@ -359,17 +360,19 @@ function Game() {
         <div>Welcome to room: {cr.name}</div>
       </Wellcome>
   
-      {cr && parseInt(cr.id) >= 0 && cr.currentPlayers && cr.currentPlayers.length > 0 && (
-        <Players maxMembers={cr.maxMembers} players={cr.currentPlayers} playerName={userName} />
-      )}
+      <InfoContainer>
+        {cr && parseInt(cr.id) >= 0 && cr.currentPlayers && cr.currentPlayers.length > 0 && (
+          <Players maxMembers={cr.maxMembers} players={cr.currentPlayers} playerName={userName} />
+        )}
   
-      {cr && parseInt(cr.id) >= 0 && (
-        <TougleMatchedCardButton
-          isMatched={isMatched}
-          broadcastChangeIsMatched={(isMatched, last2FlippedCards) => broadcastChangeIsMatched(isMatched, last2FlippedCards)}
-          setClearFlippedCards={setClearFlippedCards}
-        />
-      )}
+        {cr && parseInt(cr.id) >= 0 && (
+          <TougleMatchedCardButton
+            isMatched={isMatched}
+            broadcastChangeIsMatched={(isMatched, last2FlippedCards) => broadcastChangeIsMatched(isMatched, last2FlippedCards)}
+            setClearFlippedCards={setClearFlippedCards}
+          />
+        )}
+      </InfoContainer>
   
       {!isEmpty(cr) && !isEmpty(cr.cardSize) && (
         <CardGallery cardSize={cr.cardSize}>
