@@ -46,6 +46,8 @@ const NikeCard = (props) => {
     if (type === "yasminLogo") {
       setYasminLogoSize({ width: naturalWidth, height: naturalHeight });
     } else {
+      cardImageSize = naturalWidth  // SO IT WILL PASS ON RAILWAY
+      console.log("cardImageSize: ", cardImageSize)
       setCardImageSize({ width: naturalWidth, height: naturalHeight });
     }
   };

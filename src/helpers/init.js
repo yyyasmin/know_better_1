@@ -3,8 +3,6 @@ import { CHOSEN_PROXY_URL } from "./ServerRoutes.js";
 import { pickRandom8cards, shuffle } from "./shuffle";
 import isEmpty from "./isEmpty";
 
-const TITLE_SIZE = 2.0;
-
 const fetchDataFromJSON = async (filePath) => {
   try {
     const response = await fetch(filePath);
