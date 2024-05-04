@@ -32,8 +32,8 @@ const NikeCard = (props) => {
 
   console.log("IN NickCard --  cardSize: ", cardSize)
 
-  const [setYasminLogoSize] = useState({ width: 0, height: 0 });
-  const [cardImageSize, setCardImageSize] = useState({ width: 0, height: 0 });
+  let [yasminLogoSize, setYasminLogoSize] = useState({ width: 0, height: 0 });
+  let [cardImageSize, setCardImageSize] = useState({ width: 0, height: 0 });
 
   const handleCardClick = () => {
     if (toggleCardFlip != null) {
@@ -44,10 +44,12 @@ const NikeCard = (props) => {
   const handleImageLoad = (e, type) => {
     const { naturalWidth, naturalHeight } = e.target;
     if (type === "yasminLogo") {
+      yasminLogoSize = naturalWidth  // SO IT WILL PASS ON RAILWAY
+      console.log("yasminLogoSize: ", yasminLogoSize)
       setYasminLogoSize({ width: naturalWidth, height: naturalHeight });
     } else {
       cardImageSize = naturalWidth  // SO IT WILL PASS ON RAILWAY
-      console.log("cardImageSize: ", cardImageSize)
+      console.log("cardImageSize: ", cardImageSize)  
       setCardImageSize({ width: naturalWidth, height: naturalHeight });
     }
   };
