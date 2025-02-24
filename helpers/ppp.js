@@ -10,9 +10,14 @@ const pppRooms = (msg, rooms, maxIdx) => {
 
 const pppRoom = (msg, room) => {
 	console.log("\n", msg)
-	console.log("id:", room.id);
-	console.log("roomURL:", room.roomURL);
-	console.log("currentPlayers:", room.currentPlayers);
+	if isEmpty(room) {
+	  consoel.log ("ROOM ", room, IS EMPTY)
+	}
+	else {
+	  console.log("id:", room.id);
+	  console.log("roomURL:", room.roomURL);
+	  console.log("currentPlayers:", room.currentPlayers);
+	}
 }
 
 module.exports = {pppRooms, pppRoom};
