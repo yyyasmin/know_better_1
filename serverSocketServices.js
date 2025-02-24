@@ -6,6 +6,8 @@ let activeRooms = [];
 async function initActiveRooms() {
   try {
     const rooms = await initRoomsFunc();
+	pppRooms("\n IN initActiveRooms -- activeRooms", activeRooms, 5)
+	pppRooms("rooms", rooms, 5)
     activeRooms = rooms.flatMap((room) =>  { 
 	  const existingRoom = activeRooms.find(activeRoom => activeRoom.id === room.id);
 	  return existingRoom ? existingRoom : { ...room };
