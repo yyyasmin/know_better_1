@@ -11,7 +11,7 @@ const pppRooms = (msg, rooms, maxIdx) => {
 
 const pppRoom = (msg, room) => {
 	console.log("\n", msg)
-	if isEmpty(room) {
+	if (isEmpty(room)) {
 	  consoel.log ("ROOM ", room, IS EMPTY)
 	}
 	else {
