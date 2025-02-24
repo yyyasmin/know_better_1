@@ -75,4 +75,5 @@ app.get('/api/activeRooms', async (req, res) => {
 
 // Use process.env.PORT for flexibility in choosing the port
 const PORT = process.env.PORT || 5000;
+console.log("IN server index - PORT:", PORT)
 server.listen(PORT, console.log(`Listening to ${PORT}!`))
