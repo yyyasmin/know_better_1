@@ -9,7 +9,7 @@
     "startCommand": "node index.js",
     "sleepApplication": false,
     "multiRegionConfig": {
-      "us-east1": {
+      "us-east4": {
         "numReplicas": 1
       }
     },
