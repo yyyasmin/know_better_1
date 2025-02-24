@@ -1,5 +1,5 @@
 {
-  "name": "share_and_listen",
+  "name": "mg-Know_better_1",
   "license": "ISC",
   "version": "0.1.0",
   "dependencies": {
@@ -23,6 +23,9 @@
     "socket.io-client": "^4.7.2",
     "styled-components": "^6.1.8",
     "web-vitals": "^2.1.0"
+  },
+  "engines": {
+    "node": "20.x"
   },
   "scripts": {
     "start": "react-scripts start",
