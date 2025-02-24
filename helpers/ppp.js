@@ -1,4 +1,4 @@
-const isEmpty = require("./helpers/isEmpty");
+const isEmpty = require("./isEmpty");
 
 const pppRooms = (msg, rooms, maxIdx) => {
   console.log(msg);
