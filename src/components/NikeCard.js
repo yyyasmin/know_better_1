@@ -32,8 +32,12 @@ const NikeCard = (props) => {
 
   //console.log("IN NickCard --  cardSize: ", cardSize)
 
-  //const [yasminLogoSize, setYasminLogoSize] = useState({ width: 0, height: 0 });
-  //const [cardImageSize, setCardImageSize] = useState({ width: 0, height: 0 });
+  const [yasminLogoSize, setYasminLogoSize] = useState({ width: 0, height: 0 });
+  const [cardImageSize, setCardImageSize] = useState({ width: 0, height: 0 });
+  
+  // DUMMY CMDS - TO AVOID NOT USED VARS BUG
+  console.log("IN NickCard --  yasminLogoSize: ", yasminLogoSize)
+  console.log("IN NickCard --  cardImageSize: ", cardImageSize)
 
   const handleCardClick = () => {
     if (toggleCardFlip != null) {
