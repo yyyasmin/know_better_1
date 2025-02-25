@@ -63,15 +63,15 @@ const RoomImageWrapper = styled.div`
   border-radius: 5px;
 `;
 
-const RoomInfoLink = styled.a`
-  color: #fff;
-  text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 5px 10px;
-  border-radius: 5px;
-  margin: 5px 0;
-  font-size: 1.5vw;
-`;
+//const RoomInfoLink = styled.a`
+//  color: #fff;
+//  text-decoration: none;
+//  background-color: rgba(0, 0, 0, 0.5);
+//  padding: 5px 10px;
+//  border-radius: 5px;
+//  margin: 5px 0;
+//  font-size: 1.5vw;
+//`;
 
 const JoinButton = styled.button`
   background-color: ${(props) => props.btnColor};
@@ -137,11 +137,11 @@ const RoomsList = ({ userName, roomsInitialData }) => {
     }
   }, [currentRoom, navigate, userName]);
 
-  const broadcastChangeCr = async (updatedCr) => {
-    if (!isEmpty(updatedCr)) {
-      await emitCurentRoomChanged({ ...updatedCr });
-    }
-  };
+//  const broadcastChangeCr = async (updatedCr) => {
+//    if (!isEmpty(updatedCr)) {
+//      await emitCurentRoomChanged({ ...updatedCr });
+//    }
+//  };
 
   const handleJoinRoom = async (room) => {
     console.log("IN handleJoinRoom -- room: ", room);
