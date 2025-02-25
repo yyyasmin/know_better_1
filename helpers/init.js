@@ -1,9 +1,11 @@
-const { Know_better_1, roomSelectionBackgroundImage } = require("./GameCards/Know_better_1.js");
+const {Know_better_1, roomSelectionBackgroundImage } = require("./GameCards/Know_better_1.js");
+console.log("Know_better_1.roomSelectionBackgroundImage", roomSelectionBackgroundImage)
 const { CHOSEN_PROXY_URL } = require("./ServerRoutes.js");
 const { pickRandom8cards, shuffle } = require("./shuffle");
 const isEmpty = require("./isEmpty");
 const { pppRooms, pppRoom } = require("./ppp.js");
 
+console.log("IN server init")
 
 const fetchDataFromJSON = async (filePath) => {
   try {
@@ -11,7 +13,7 @@ const fetchDataFromJSON = async (filePath) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(`Error fetching data from ${filePath}:`, error);
+    console.log.error(`Error fetching data from ${filePath}:`, error);
     return null;
   }
 };
@@ -80,7 +82,8 @@ const calculateCardSize = (cardsNum) => {
 const initCardsInRoomsFromJson = async (rooms) => {
   for (const room of rooms) {
     const jsonURL = `${CHOSEN_PROXY_URL}/database/GameCards/${room.gameName}.json`;
-    const cardsData = await fetchDataFromJSON(jsonURL);
+    ////console.log.log("IN initCardsInRoomsFromJson -- jsonURL:", jsonURL)
+	const cardsData = await fetchDataFromJSON(jsonURL);
 
     if (cardsData) {
       let gameCards = cardsData.gameCards || [];
@@ -92,7 +95,8 @@ const initCardsInRoomsFromJson = async (rooms) => {
         Know_better_1: arraysObj.shuffledimportPathArr.slice(0, 8)
       };
 
-      const backgroundImage = roomSelectionBackgroundImage || null;
+      //const backgroundImage = roomSelectionBackgroundImage || null;
+	  const backgroundImage = roomSelectionBackgroundImage ? roomSelectionBackgroundImage : null;
 
       if (!isEmpty(importArr[room.gameName])) {
         const gameCards1 = gameCards.map((card, index) => {
@@ -124,8 +128,8 @@ const initCardsInRoomsFromJson = async (rooms) => {
 
 const initRoomsFromJson = async () => {
   const jsonURL = `${CHOSEN_PROXY_URL}/database/rooms.json`;
+  //console.log.log("IN init -- jsonURL:", jsonURL)
   const roomsData = await fetchDataFromJSON(jsonURL);
-
   if (roomsData) {
     let newRooms = [];
 
@@ -140,7 +144,6 @@ const initRoomsFromJson = async () => {
         newRooms.push(newRoom);
       }
     });
-
     return newRooms;
   }
   return [];
@@ -149,6 +152,6 @@ const initRoomsFromJson = async () => {
 module.exports.initRoomsFunc = async () => {
   let rooms = await initRoomsFromJson();
   rooms = await initCardsInRoomsFromJson(rooms);
-  pppRooms('\nINIt - ROOMS:', rooms)
+  pppRooms('\nINIt - ROOMS:', rooms, 2)
   return rooms;
 };

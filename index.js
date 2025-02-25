@@ -49,15 +49,16 @@ app.get("/database/GameCards/:filename", (req, res) => {
 });
 
 
-
 const {initActiveRooms, serverSocketServices} = require("./serverSocketServices");
 serverSocketServices(io);
 app.use(express.json());
+console.log("__dirname", __dirname)
+app.use("/helpers", express.static(path.join(__dirname, "helpers")));
 
 app.get('/api/activeRooms', async (req, res) => {
   try {
     let activeRooms  = await initActiveRooms();
-    pppRooms("\n app.get -- activeRooms:", activeRooms, 5)
+    //pppRooms("\n app.get -- activeRooms:", activeRooms, 5)
 
     if (!activeRooms || activeRooms.length === 0) {
       return res.status(404).json({ error: "No active rooms found" });

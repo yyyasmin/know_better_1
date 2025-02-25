@@ -1,8 +1,8 @@
 const path = require("path");
 
-const roomSelectionBackgroundImage = path.join(__dirname, "../../assets/textures/know_better_1/roomSelectionBackgroundImage.png");
+const roomSelectionBackgroundImage = path.join(__dirname, "../assets/textures/know_better_1/roomSelectionBackgroundImage.png");
 
-const getImagePath = (folder, name) => path.join(__dirname, `../../assets/textures/know_better_1/${folder}/${name}.png`);
+const getImagePath = (folder, name) => path.join(__dirname, `../assets/textures/know_better_1/${folder}/${name}.png`);
 
 const Know_better_1 = [
   roomSelectionBackgroundImage,
@@ -20,4 +20,4 @@ const Know_better_1 = [
   [getImagePath("png1", "p12"), getImagePath("png2", "p12")],
 ];
 
-module.exports = { Know_better_1, roomSelectionBackgroundImage };
+module.exports = { getImagePath, Know_better_1, roomSelectionBackgroundImage };

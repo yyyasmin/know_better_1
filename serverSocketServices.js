@@ -6,13 +6,13 @@ let activeRooms = [];
 async function initActiveRooms() {
   try {
     const rooms = await initRoomsFunc();
-	pppRooms("\n IN initActiveRooms -- activeRooms", activeRooms, 5)
-	pppRooms("rooms", rooms, 5)
+	////pppRooms("\n IN initActiveRooms -- activeRooms", activeRooms, 5)
+	////pppRooms("rooms", rooms, 5)
     activeRooms = rooms.flatMap((room) =>  { 
 	  const existingRoom = activeRooms.find(activeRoom => activeRoom.id === room.id);
 	  return existingRoom ? existingRoom : { ...room };
     });
-	pppRooms("\nIN serverSocketServices -- activeRooms:", activeRooms, 5)
+	////pppRooms("\nIN serverSocketServices -- activeRooms:", activeRooms, 5)
 	return activeRooms;
   } catch (error) {
     console.error("Error initializing rooms:", error);
@@ -62,6 +62,7 @@ const getRoomFromActiveRoomsByRoomURL = (roomRoomURL) => {
 }
 
 const getRoomIdxFromActiveRoomsByRoomURL = (roomURL) => {
+  //pppRooms("IN getRoomIdxFromActiveRoomsByRoomURL -- activeRooms",activeRooms , 2)
   return activeRooms.findIndex((room) => room.roomURL === roomURL);
 }
 
@@ -117,7 +118,7 @@ const setAvailableRoomInActiveRooms = (requesedRoom) => {
     }
 
     else {
-	  conosle.log("NO ROOM IN activeRooms with roomURL:", requesedRoom.roomURL)
+	  console.log("NO ROOM IN activeRooms with roomURL:", requesedRoom.roomURL)
 	  return -1;
 	}
       updatedRoomNewCopy.cardsData.map((card, index) => {
@@ -126,7 +127,7 @@ const setAvailableRoomInActiveRooms = (requesedRoom) => {
       });
       activeRooms[setRoomIndex] = {...updatedRoomNewCopy}
       console.log("ROOM ", activeRooms[setRoomIndex].id, "ASSIGNED")
-      //pppRooms(activeRooms)
+      ////pppRooms(activeRooms)
       return activeRooms[setRoomIndex]
 }
 
@@ -159,10 +160,12 @@ const addPlayerToRoom = (roomToAddPlayer, playerName, socketId) => {
       isActive: false,
       flippCount: 0,
     };
-
+	pppRooms("IN addPlayerToRoom -- activeRooms: ", activeRooms, 2) 
     let availableRoomIdx = getRoomIdxFromActiveRoomsByRoomURL(roomToAddPlayer.roomURL)
     let availableRoom = activeRooms[availableRoomIdx]
-
+	if (isEmpty(availableRoom))  {
+	  console.log("NO availableRoom found -- activeRooms:", activeRooms)		
+	}
     let currentPlayersNewCopy = [...availableRoom.currentPlayers]
     currentPlayersNewCopy.push(newPlayer)
 
