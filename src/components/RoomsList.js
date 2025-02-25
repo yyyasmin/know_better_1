@@ -6,7 +6,7 @@ import {
   updateCr,
   removeUpdatedRoomDataListener,
   emitAddMemberToRoom,
-  emitCurentRoomChanged,
+  //emitCurentRoomChanged,
 } from "../clientSocketServices";
 
 const GameContainer = styled.div`

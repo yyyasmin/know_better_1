@@ -3,7 +3,7 @@ import { CHOSEN_PROXY_URL } from "./ServerRoutes.js";
 import { pickRandom8cards, shuffle } from "./shuffle";
 import isEmpty from "./isEmpty";
 
-const TITLE_SIZE = 2.0;
+//const TITLE_SIZE = 2.0;
 
 const fetchDataFromJSON = async (filePath) => {
   try {
@@ -18,7 +18,7 @@ const fetchDataFromJSON = async (filePath) => {
 const getInitialGallerySize = () => {
   const TITLE_SIZE = 2.5; // Title size in rem
 
-  const screenRemWidth = window.innerWidth / 16 
+  //const screenRemWidth = window.innerWidth / 16 
   const screenRemHeight = window.innerHeight / 16
 
   const cardsContainerHeightRem =screenRemHeight - TITLE_SIZE
