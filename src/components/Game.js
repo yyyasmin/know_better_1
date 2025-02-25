@@ -7,7 +7,7 @@ import MatchedCards from "./MatchedCards";
 import TougleMatchedCardButton from "./TougleMatchedCardButton";
 import { useLocation } from "react-router-dom";
 //import { calculateCardSize, getCardsContainerHeight } from "../helpers/init";
-import { calculateCardSizet } from "../helpers/init";
+import { calculateCardSize } from "../helpers/init";
 
 
 import {
