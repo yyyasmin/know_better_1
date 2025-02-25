@@ -1,4 +1,3 @@
-import isEmpty from "./isEmpty";
 
 const getInitialGallerySize = () => {
   const TITLE_SIZE = 2.5; // Title size in rem
