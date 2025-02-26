@@ -1,22 +1,14 @@
-const { initRoomsFunc } = require("./helpers/init");
 const { pppRooms, pppRoom } = require("./helpers/ppp.js");
 const isEmpty = require("./helpers/isEmpty");
 let activeRooms = [];
 
-async function initActiveRooms() {
-  try {
-    const rooms = await initRoomsFunc();
-	////pppRooms("\n IN initActiveRooms -- activeRooms", activeRooms, 5)
-	////pppRooms("rooms", rooms, 5)
-    activeRooms = rooms.flatMap((room) =>  { 
-	  const existingRoom = activeRooms.find(activeRoom => activeRoom.id === room.id);
-	  return existingRoom ? existingRoom : { ...room };
-    });
-	////pppRooms("\nIN serverSocketServices -- activeRooms:", activeRooms, 5)
-	return activeRooms;
-  } catch (error) {
-    console.error("Error initializing rooms:", error);
-  }
+function getActiveRooms() {
+  return activeRooms;
+};
+
+function setActiveRooms(newData) {
+  activeRooms = newData;
+  return activeRooms;
 }
 
 // Function to emit UPDATED_CURRENT_ROOM event to all players in a room
@@ -100,35 +92,42 @@ const updateActiveRoomsWithUpdatedRoom = (roomWithNewData) => {
 
 
 const setAvailableRoomInActiveRooms = (requesedRoom) => {
-
+  let newRoom = {}
   if ( isEmpty(requesedRoom) )  {
     console.log("REQUESTING EMPTY ROOM:", requesedRoom.roomURL, "TO SET FOR PLAYER ")
     return -1
   }
 
-  console.log("ÏN setAvailableRoomInActiveRooms -- requesedRoom-roomURL", requesedRoom.roomURL)
+  console.log("ÏN setAvailableRoomInActiveRooms -- requesedRoom", requesedRoom)
 
-  const setRoomIndex = activeRooms.findIndex((r) => r.roomURL == requesedRoom.roomURL);
+  const setRoomIndex = activeRooms.findIndex((r) => r.id == requesedRoom.id);
 
     console.log("setRoomIndex: ", setRoomIndex)
 
     if (setRoomIndex !== -1) {  // FOUND THE AVAILABLE ROOM IN activeRooms FOR THE NEW PLAYER
       console.log("FOUND AVAILABLE ROOM NUM: ", activeRooms[setRoomIndex].id, " FOR NEW PLAYER IN INDEX:", setRoomIndex)
-      return activeRooms[setRoomIndex]
+      newRoom = {... activeRooms[setRoomIndex]}
     }
 
     else {
 	  console.log("NO ROOM IN activeRooms with roomURL:", requesedRoom.roomURL)
 	  return -1;
 	}
+	if (isEmpty(newRoom.cardsData)) {
+		newRoom = {...requesedRoom}
+		activeRooms[setRoomIndex] = newRoom
+		console.log("IN setAvailableRoomInActiveRooms -- newRoom", newRoom)
+		return newRoom;
+	}
+	else {
+	  updatedRoomNewCopy = {...activeRooms[setRoomIndex]}
       updatedRoomNewCopy.cardsData.map((card, index) => {
-      // Reset all game cards to be on their back side when a new player joins to start the game from the beginning
        card.faceType = "back";
       });
-      activeRooms[setRoomIndex] = {...updatedRoomNewCopy}
-      console.log("ROOM ", activeRooms[setRoomIndex].id, "ASSIGNED")
-      ////pppRooms(activeRooms)
-      return activeRooms[setRoomIndex]
+      activeRooms[setRoomIndex] = {...updatedRoomNewCopy};
+      console.log("ROOM ", updatedRoomNewCopy, "ASSIGNED")
+      return updatedRoomNewCopy
+	}
 }
 
 
@@ -330,4 +329,4 @@ const serverSocketServices = (io) => {
 	
 };
 
-module.exports = {initActiveRooms, activeRooms, getRoomFromActiveRoomsByRoomURL, serverSocketServices};
+module.exports = {getActiveRooms, setActiveRooms,activeRooms, serverSocketServices};

@@ -4,6 +4,8 @@ const http = require("http");
 const socket = require("socket.io");
 const cors = require("cors");
 const path = require("path");
+const isEmpty = require("./helpers/isEmpty");
+
 
 const app = express();
 const server = http.Server(app);
@@ -49,32 +51,53 @@ app.get("/database/GameCards/:filename", (req, res) => {
 });
 
 
-const {initActiveRooms, serverSocketServices} = require("./serverSocketServices");
+const {
+	getActiveRooms,
+	setActiveRooms,
+	activeRooms,
+	serverSocketServices} = require("./serverSocketServices");
+
 serverSocketServices(io);
 app.use(express.json());
 console.log("__dirname", __dirname)
 app.use("/helpers", express.static(path.join(__dirname, "helpers")));
 
-app.get('/api/activeRooms', async (req, res) => {
+// POST route
+app.post('/api/activeRooms', async (req, res) => {
   try {
-    let activeRooms  = await initActiveRooms();
-    //pppRooms("\n app.get -- activeRooms:", activeRooms, 5)
+    const { rooms } = req.body;  // Extract rooms from the request body
+    console.log("\n app.post -- received rooms:", rooms);
 
-    if (!activeRooms || activeRooms.length === 0) {
-      return res.status(404).json({ error: "No active rooms found" });
-    }
+    let updatedRooms = [];
+	let activeRooms = getActiveRooms()
+
+    rooms.forEach(room => {
+      const existingRoom = activeRooms.find(activeRoom => activeRoom.id === room.id);
+      if (existingRoom) {
+        updatedRooms.push(existingRoom);
+      } else {
+        const newRoom = {
+          id: room.id,
+          currentPlayers: [],
+        };
+        updatedRooms.push(newRoom);
+      }
+    });
+
+    setActiveRooms(updatedRooms);
+
+    console.log("\nIN app.post - updated returned activeRooms:", activeRooms);
 
     res.setHeader("Content-Type", "application/json");
-    return res.status(200).json(activeRooms);
+    return res.status(200).json(updatedRooms);  // Return the updated rooms list to the client
 
   } catch (error) {
-    console.error("Error in /api/active-rooms:", error);
+    console.error("Error in /api/activeRooms:", error);
     return res.status(500).json({ error: "Server error" });
   }
 });
 
 
-// Use process.env.PORT for flexibility in choosing the port
 const PORT = process.env.PORT || 5000;
 console.log("IN server index - PORT:", PORT)
 server.listen(PORT, console.log(`Listening to ${PORT}!`))

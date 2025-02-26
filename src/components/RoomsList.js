@@ -150,8 +150,10 @@ const RoomsList = ({ userName, roomsInitialData }) => {
     console.log("!isEmpty(userName)", !isEmpty(userName));
 
     if (!isEmpty(room) && !isEmpty(userName)) {
-      await emitAddMemberToRoom({
-        chosenRoom: room,
+	  const fullRoom = roomsInitialData.find(r => r.id===room.id) || room;
+	  console.log("IN handleJoinRoom -- fullRoom:", fullRoom)
+	  await emitAddMemberToRoom({
+        chosenRoom: fullRoom,
         playerName: userName,
       });
 	  

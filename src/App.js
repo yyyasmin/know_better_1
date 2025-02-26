@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NameForm from "./components/NameForm";
 import RoomsList from "./components/RoomsList";
 import Game from "./components/Game";
-import { CHOSEN_PROXY_URL } from "./helpers/ServerRoutes.js";
+import { initRoomsFunc } from "./helpers/init";
 
 const AppContainer = styled.div`
   width: 100vw;
-  min-height: 100vh;
+  min-height: 100vh; /* Changed height to min-height */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,13 +25,8 @@ function App() {
   useEffect(() => {
     const init = async () => {
       try {
-        // Fetch rooms data from the server
-		const server_url = `${CHOSEN_PROXY_URL}/api/activeRooms`
-        console.log("server_url", server_url)
-		const response = await fetch(server_url);
-        const data = await response.json();  // Convert response to JSON
-        console.log("IN App -- rooms data", data)
-		setRoomsInitialData(data);
+        const initRoomsObj = await initRoomsFunc();
+        setRoomsInitialData(initRoomsObj);
       } catch (error) {
         console.error("Error initializing the app:", error);
       }

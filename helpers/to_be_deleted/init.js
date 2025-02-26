@@ -86,7 +86,8 @@ const initCardsInRoomsFromJson = async (rooms) => {
 	const cardsData = await fetchDataFromJSON(jsonURL);
 
     if (cardsData) {
-      let gameCards = cardsData.gameCards || [];
+	  let gameCards = gameCards ? cardsData.gameCards : [];
+
       let arraysObj = pickRandom8cards(gameCards, Know_better_1.slice(1));
 
       gameCards = arraysObj.shuffledcardsArr.slice(0, 8);
