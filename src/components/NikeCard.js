@@ -26,8 +26,6 @@ const CardImage = styled.img`
   object-fit: cover; /* Maintain aspect ratio and cover entire container */
   object-position: center; /* Ensure image is centered within container */
 `;
-console.log("IN NikeCard -- CardImage:", CardImage)
-console.log("IN NikeCard -- yasminLogo:", yasminLogo)
 
 const NikeCard = (props) => {
   const { card, cardSize, faceType, frameColor, toggleCardFlip } = props;
@@ -38,8 +36,8 @@ const NikeCard = (props) => {
   const [cardImageSize, setCardImageSize] = useState({ width: 0, height: 0 });
   
   // DUMMY CMDS - TO AVOID NOT USED VARS BUG
-  //console.log("IN NickCard --  yasminLogoSize: ", yasminLogoSize)
-  //console.log("IN NickCard --  cardImageSize: ", cardImageSize)
+  console.log("IN NickCard --  yasminLogoSize: ", yasminLogoSize)
+  console.log("IN NickCard --  cardImageSize: ", cardImageSize)
 
   const handleCardClick = () => {
     if (toggleCardFlip != null) {
