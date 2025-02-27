@@ -100,4 +100,11 @@ app.post('/api/activeRooms', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 console.log("IN server index - PORT:", PORT)
+
+// SERVER URL
+const publicURL = process.env.RAILWAY_PUBLIC_URL || process.env.RAILWAY_STATIC_URL;
+console.log(`Server is running on port ${PORT}`);
+console.log(`Public URL: ${publicURL || "Check Railway Dashboard"}`);
+
+
 server.listen(PORT, console.log(`Listening to ${PORT}!`))

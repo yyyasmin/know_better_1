@@ -30,8 +30,6 @@ const CardImage = styled.img`
 const NikeCard = (props) => {
   const { card, cardSize, faceType, frameColor, toggleCardFlip } = props;
 
-  ////console.log("IN NickCard --  cardSize: ", cardSize)
-
   const [yasminLogoSize, setYasminLogoSize] = useState({ width: 0, height: 0 });
   const [cardImageSize, setCardImageSize] = useState({ width: 0, height: 0 });
   
